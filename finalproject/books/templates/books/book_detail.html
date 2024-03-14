@@ -1,0 +1,101 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ book.title }}
+{% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block content %}
+    {% if page_obj.number == 1 %}
+        <div class="container bg-light p-3 mt-5 shadow-sm">
+            <div class="row">
+                <div class="col-12 col-md-4 text-center">
+                    <img class="img-thumbnail h-50 rounded-0" src="{{ book.book_pic.url }}" alt="{{ book.title }}">
+                    <div class="mt-3 px-3">
+                        <a class="d-block btn btn-outline-dark mx-auto" href="#content" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                            Read Now
+                        </a>
+                        {% if is_added %}
+                            <a href="{% url 'del_from_book_list' book.pk %}" class="d-block btn btn-outline-danger mx-auto mt-2" role="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                                Delete from list
+                            </a>
+                            <div class="alert alert-success d-flex justify-content-center gap-2 text-center mt-2" role="alert">
+                               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg>
+                                <div>Added to your list</div>
+                            </div>
+                        {% elif request.user.is_authenticated %}
+                            <a class="d-block btn btn-outline-success mt-2 mx-auto" href="{% url 'add_book_to_list' book.pk %}" role="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                                    <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+                                </svg>
+                                Add to list
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <h2 class="fw-bold">{{ book.title }}</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="fw-semibold">Author: </p>
+                            <p class="fw-semibold">Genres: </p>
+                            <p class="fw-semibold">Publication date: </p>
+                        </div>
+                        <div class="col-6">
+                            <a href="{{ book.author.get_absolute_url }}" style="color: var(--blue);">{{ book.author }}</a>
+                            <p>{% for g in genres %} <a href="{{ g.get_absolute_url }}" style="color: var(--blue);">{{ g }}</a> {% endfor %}</p>
+                            <p>{{ book.publication_date|date:'j F Y' }}</p>
+                        </div>
+                    </div>
+                    <p class="mt-3">{{ book.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if page_obj %}
+        <div id="content" class="container-fluid px-0 px-md-3 mb-5 mt-5">
+            <div class="card rounded-0">
+                <div class="card-header text-center">
+                    <h4 class="fw-bold">{{ object_list.0 }}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="fs-4 fw-normal p-2">{{ object_list.0.content|safe }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <nav class="d-flex justify-content-center mt-3" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link text-muted" href="?page=1">first</a></li>
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link text-muted" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
+                            <li class="page-item">
+                                <p class="page-link text-muted bg-light">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+                            </li>
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link text-muted" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                            <li class="page-item"><a class="page-link text-muted" href="?page={{ page_obj.paginator.num_pages }}">last</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div id="content" class="container mt-5 mb-5 alert alert-warning shadow-lg text-center" role="alert">
+            <p class="fs-3">There is not any pages</p>
+        </div>
+    {% endif %}
+{% endblock %}

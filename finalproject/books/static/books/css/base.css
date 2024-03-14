@@ -1,0 +1,118 @@
+:root {
+    --blue: #097896;
+    --dark-blue: #023A60;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    line-height: 1;
+}
+
+.wrapper {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    transition: backdrop-filter 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    transition: 0.5s;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.1);
+}
+
+.logo-end {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
+.main {
+    flex: 1 1 auto;
+}
+
+.lg-hide {
+    display: block;
+}
+
+.form-errors {
+    color: #ff3333;
+}
+
+.separate-line {
+    height: 5px;
+    width: 100%;
+    background-color: var(--blue);
+}
+
+.footer-line {
+    height: 7rem;
+    width: 3rem;
+    margin-right: 5px;
+    transform: skew(-45deg);
+}
+
+.footer-line:nth-child(2n + 1) {
+    background-color: var(--blue);
+}
+
+.footer-line:nth-child(2n) {
+    background-color: var(--dark-blue);
+}
+
+.footer-line-container {
+    display: flex;
+}
+
+.submit-btn {
+    padding: 6px 150px 6px;
+    color: #fff;
+    background-color: var(--dark-blue);
+    border: none;
+    transition: 0.2s ease;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn:hover {
+    transform: scale(0.98);
+    box-shadow: none;
+}
+
+.small-btn {
+    padding: 3px !important;
+    width: 10rem;
+}
+
+@media (min-width: 992px) {
+    .logo-end {
+        position: relative;
+    }
+}
+
+@media (max-width: 992px) {
+    .footer-line-container {
+        display: none;
+    }
+    .lg-hide {
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+    .submit-btn {
+        padding: 6px 75px 6px;
+    }
+}

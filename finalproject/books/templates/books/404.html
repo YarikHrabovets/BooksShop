@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>404</title>
+        <link href="{% static 'books/imgs/logo.png' %}" rel="icon">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <style rel="stylesheet">
+            body {
+              overflow-y: hidden;
+            }
+            .smile img {
+              height: 25em;
+            }
+            @media only screen and (max-width: 992px) {
+              .smile img {
+                  height: 17em;
+              }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="smile position-absolute top-50 start-50 translate-middle">
+            <img class="animate__animated animate__hinge animate__delay" src="{% static 'books/imgs/sad.svg' %}">
+        </div>
+        <div class="smile position-absolute top-50 start-50 translate-middle pb-3">
+            <img class="animate__animated animate__fadeIn animate__delay-4s" src="{% static 'books/imgs/sad.svg' %}">
+        </div>
+        <div class="container fixed-bottom pb-3 text-center">
+            <p class="fs-1 animate__animated animate__bounceInUp animate__delay-0.7s">Error 404. This page Not Found.</p>
+            <a class="btn btn-outline-primary opacity-75 btn-lg" href="{% url 'index' %}" role="button">Home</a>
+        </div>
+    </body>
+</html>

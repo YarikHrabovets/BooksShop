@@ -1,0 +1,51 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ genre.name }}
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'books/css/books.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="shadow mb-5 p-3">
+        <h2 class="fw-bold">{{ genre.name }}</h2>
+        <hr>
+        <p>{{ genre.description|safe }}</p>
+    </div>
+    <h3 class="text-center mt-5 fw-bold">Related books</h3>
+    <div class="row justify-content-center mt-3">
+        {% if books %}
+            {% for book in books %}
+                <div class="col-12 col-sm-6 col-lg-3 mb-3">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-12">
+                                <img src="{{ book.book_pic.url }}" class="d-block w-100 img-h-control rounded-top" alt="{{ book.title }}">
+                            </div>
+                            <div class="col-12">
+                                <div class="card-body body-h-control">
+                                    <h5 class="card-title">{{ book.title }}</h5>
+                                    <p class="card-text">{{ book.description|safe|truncatechars:100 }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ book.author }}</small></p>
+                                    <div class="position-absolute bottom-0 mb-3">
+                                        <a class="btn submit-btn small-btn text-white" role="button" href="{{ book.get_absolute_url }}" style="background-color: var(--dark-blue);">Read</a>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning shadow-lg text-center mb-5" role="alert">
+                <p class="fs-3">There is not books for this genre</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

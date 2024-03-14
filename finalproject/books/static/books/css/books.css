@@ -1,0 +1,28 @@
+ @media (min-width: 576px) {
+    .img-h-control {
+        height: 383px !important;
+    }
+    .body-h-control {
+        height: 296px !important;
+    }
+}
+@media (min-width: 768px) {
+    .img-h-control {
+        height: 525px !important;
+    }
+}
+@media (min-width: 992px) {
+    .img-h-control {
+        height: 383px !important;
+    }
+}
+@media (min-width: 1200px) {
+    .img-h-control {
+        height: 407px !important;
+    }
+}
+@media (min-width: 1400px) {
+    .img-h-control {
+        height: 478px !important;
+    }
+}

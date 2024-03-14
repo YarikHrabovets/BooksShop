@@ -1,0 +1,30 @@
+{% extends 'books/base.html' %}
+
+{% block title %}
+    Genres
+{% endblock %}
+
+{% block links %}
+    <style>
+        .list-group > a:hover {
+            background-color: #E9ECEF !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 mb-5 p-3 shadow">
+        <h2 class="text-center fw-bold">Genres</h2>
+        <hr>
+        {% if genres_list %}
+            <div class="list-group">
+                {% for genre in genres_list %}
+                    <a href="{{ genre.get_absolute_url }}" class="list-group-item list-group-item-action overflow-scroll {% if forloop.counter|divisibleby:2 %}bg-light{% endif %}" aria-current="true">
+                        {{ genre.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+.feature {
+    background-color: var(--blue);
+}
+
+.icon-hover {
+    transition: 0.5s ease-out;
+}
+
+.icon-hover:hover {
+    transform: scale(1.7) rotate(360deg);
+}
+
+@media (min-width: 768px) {
+    .h-control {
+        height: 224px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .h-control {
+        height: 250px !important;
+    }
+}

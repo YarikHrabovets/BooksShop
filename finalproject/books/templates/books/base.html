@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+	<link href="{% static 'books/imgs/logo.png' %}" rel="icon">
+    <link rel="stylesheet" href="{% static 'books/css/base.css' %}">
+	{% block links %}{% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header shadow-sm">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+					<div class="nav">
+						<button class="navbar-toggler mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+		      				<span class="navbar-toggler-icon"></span>
+		    			</button>
+						<div class="logo-end">
+							<a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'books/imgs/logo.png' %}" style="max-width: 50px;"></a>
+						</div>
+					</div>
+					<div class="navbar-toggler offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="height: 100vh;">
+						<div class="offcanvas-header">
+        					<a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'books/imgs/logo.png' %}" style="max-width: 50px;"></a>
+        					<button type="button" class="btn-close btn-close-dark text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      					</div>
+						<div class="separate-line"></div>
+						<div class="offcanvas-body">
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mt-3">
+								<li class="nav-item">
+									{% if request.user.is_authenticated %}
+										<a class="nav-link" href="{% url 'profile' user.id %}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle me-3" viewBox="0 0 16 16">
+												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+												<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+											</svg>
+											Profile
+										</a>
+									{% else %}
+										<a href="{% url 'login' %}" class="btn btn-outline-secondary">Log In</a>
+										<a href="{% url 'signup' %}" class="btn btn-outline-secondary">Sign Up</a>
+									{% endif %}
+								</li>
+								<hr>
+								<li class="nav-item mt-3">
+									<a class="nav-link" href="{% url 'books_list' %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book-fill me-3" viewBox="0 0 16 16">
+											<path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+										</svg>
+										All Books
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'genres_list' %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-type me-3" viewBox="0 0 16 16">
+											<path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/>
+										</svg>
+										All Genres
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'authors_list' %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people-fill me-3" viewBox="0 0 16 16">
+											<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+										</svg>
+										Authors
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'random' %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shuffle me-3" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+											<path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+										</svg>
+										Random Book
+									</a>
+								</li>
+							</ul>
+					  </div>
+					</div>
+					<div class="collapse navbar-collapse justify-content-between">
+						<ul class="navbar-nav ms-5 gap-3">
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'books_list' %}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-fill d-block mx-auto mb-1" viewBox="0 0 16 16">
+										<path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+									</svg>
+									All Books
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'genres_list' %}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type d-block mx-auto mb-1" viewBox="0 0 16 16">
+										<path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/>
+									</svg>
+									All Genres
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'authors_list' %}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill d-block mx-auto mb-1" viewBox="0 0 16 16">
+										<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+									</svg>
+									Authors
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'random' %}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle d-block mx-auto mb-1" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+									  	<path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+									</svg>
+									Random Book
+								</a>
+							</li>
+						</ul>
+						<div class="me-3">
+							{% if request.user.is_authenticated %}
+								<ul class="navbar-nav">
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'profile' user.id %}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle d-block mx-auto mb-1" viewBox="0 0 16 16">
+												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+												<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+											</svg>
+											Profile
+										</a>
+									</li>
+								</ul>
+							{% else %}
+								<a href="{% url 'login' %}" class="btn btn-outline-secondary">Log In</a>
+								<a href="{% url 'signup' %}" class="btn btn-outline-secondary">Sign Up</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+            </nav>
+        </header>
+        <main class="main">{% block content %}{% endblock %}</main>
+		<footer class="bg-light">
+			<div class="container p-4">
+				<div class="d-flex justify-content-center">
+					<div class="footer-line-container me-5">
+						<div class="footer-line"></div>
+						<div class="footer-line"></div>
+						<div class="footer-line"></div>
+						<div class="footer-line"></div>
+					</div>
+					<div class="d-block ms-5">
+						<h5 class="text-uppercase">Books online</h5>
+						<p>
+						  	Explore the world one page at a time with Books online.
+							Dive into a world of words and imagination,
+							where every book lover finds their next favorite read.
+							Unlock the magic of storytelling at Books online,
+							your gateway to the world of books.
+							Connect with the world of literature and start your reading adventure today.
+						</p>
+					</div>
+				</div>
+		  	</div>
+			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+				© 2023 Copyright:
+			  	<a class="text-dark" href="https://yaroslavhrabovets.in.ua/">YaroslavHrabovets.in.ua</a>
+			</div>
+		</footer>
+    </div>
+	{% block scripts %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

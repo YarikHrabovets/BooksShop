@@ -1,0 +1,55 @@
+.bg-profile {
+    background-repeat: repeat-x;
+    height: 200px;
+}
+
+.profile-pic {
+    position: absolute;
+    top: -10rem;
+    width: 75%;
+}
+
+.mt-pic-btn {
+    margin-top: 5rem;
+}
+
+.dot {
+    position: relative;
+    left: 20px;
+}
+
+@media (max-width: 1399px) {
+    .profile-pic {
+        position: absolute;
+        top: -7rem;
+        width: 75%;
+    }
+
+    .mt-pic-btn {
+        margin-top: 7rem;
+    }
+}
+
+@media (max-width: 1199px) {
+    .profile-pic {
+        position: absolute;
+        top: -7rem;
+        width: 75%;
+    }
+
+    .mt-pic-btn {
+        margin-top: 5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile-pic {
+        position: absolute;
+        top: -120px;
+        width: 150px;
+    }
+
+    .mt-pic-btn {
+        margin-top: 50px;
+    }
+}
